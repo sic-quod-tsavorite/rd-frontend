@@ -26,10 +26,10 @@
             {{ duck.name }}
           </h3>
           <!-- Duck name -->
-          <p class="text-gray-700">{{ duck.aboutDuck }}</p>
-          <!-- About Duck -->
-          <p class="text-blue-500 font-bold mt-2">{{ duck.netWorth }}</p>
-          <!-- Duck net worth -->
+          <p class="text-gray-700">{{ duck.description }}</p>
+          <!-- Description -->
+          <p class="text-blue-500 font-bold mt-2">{{ duck.price }}</p>
+          <!-- Duck price -->
           <div class="flex justify-between mt-4">
             <router-link
               :to="`ducks/${duck._id}`"
@@ -38,12 +38,12 @@
               Duck Details
             </router-link>
             <button
-              @click="addToPond(duck)"
+              @click="addToCart(duck)"
               class="bg-green-500 text-white px-1 py-2 rounded hover:bg-green-600"
             >
-              Add to Pond
+              Add to Cart
             </button>
-            <!-- Add to pond button -->
+            <!-- Add to cart button -->
           </div>
         </div>
       </div>
@@ -54,9 +54,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useDucks } from "../modules/useDucks";
-import { usePond } from "@/modules/pond/usePond";
+import { useCart } from "@/modules/pond/usePond";
 
-const { addToPond } = usePond();
+const { addToCart } = useCart();
 
 const { ducks, fetchDucks, error, loading } = useDucks();
 

@@ -2,24 +2,24 @@
   <transition name="fade-slide">
     <div
       v-if="isVisible"
-      @click.self="togglePond"
+      @click.self="toggleCart"
       class="fixed inset-0 bg-black bg-opacity-50 flex justify-end"
     >
-      <!-- Overlay + togglePond -->
-      <div class="pond-content bg-[#181818] w-96 h-full p-4 overflow-y-auto">
-        <!-- Pond content & .stop -->
+      <!-- Overlay + toggleCart -->
+      <div class="cart-content bg-[#181818] w-96 h-full p-4 overflow-y-auto">
+        <!-- Cart content & .stop -->
         <!-- top close X -->
         <button
-          @click="togglePond"
+          @click="toggleCart"
           class="absolute top-3 right-4 text-4xl text-red-400 hover:text-red-700"
         >
           &times;
         </button>
         <!-- Close button -->
 
-        <h2 class="text-2xl font-bold mb-4">Pond</h2>
-        <div v-for="item in pond" :key="item._id" class="mb-4">
-          <!-- Loop through the pond items -->
+        <h2 class="text-2xl font-bold mb-4">Cart</h2>
+        <div v-for="item in cart" :key="item._id" class="mb-4">
+          <!-- Loop through the cart items -->
 
           <div class="flex pb-2">
             <img
@@ -32,10 +32,10 @@
               <div>
                 <p class="font-semibold">{{ item.name }}</p>
                 <!-- Duck name -->
-                <p>Net worth: {{ item.netWorth.toFixed(2) }}</p>
-                <!-- Duck netWorth -->
-                <p>Total: {{ pondTotalIndividualDuck(item._id).toFixed(2) }}</p>
-                <!-- Total netWorth of the duck -->
+                <p>Price: {{ item.price.toFixed(2) }}</p>
+                <!-- Duck price -->
+                <p>Total: {{ cartTotalIndividualDuck(item._id).toFixed(2) }}</p>
+                <!-- Total price of the duck -->
               </div>
               <div class="flex items-center">
                 <button
@@ -58,14 +58,14 @@
           </div>
         </div>
 
-        <p v-if="pond.length === 0" class="text-center">Pond is empty</p>
-        <!-- If pond is empty -->
+        <p v-if="cart.length === 0" class="text-center">Cart is empty</p>
+        <!-- If cart is empty -->
 
         <div class="pt-4 border-t">
-          <p class="text-right font-semibold">Subtotal: $ {{ pondTotal() }}</p>
-          <!-- Total in the pond -->
+          <p class="text-right font-semibold">Subtotal: $ {{ cartTotal() }}</p>
+          <!-- Total in the cart -->
           <p class="text-right font-semibold">Sales tax: $ {{ salesTax() }}</p>
-          <!-- Salestax in the pond -->
+          <!-- Salestax in the cart -->
           <p class="font-semibold">Coupon Code:</p>
           <input
             type="text"
@@ -77,7 +77,7 @@
           <p class="text-right font-semibold">
             Grand Total: $ {{ grandTotal() }}
           </p>
-          <!-- Grand total in the pond -->
+          <!-- Grand total in the cart -->
           <div class="flex justify-end">
             <button
               @click="checkOutBuy"
@@ -94,29 +94,29 @@
 </template>
 
 <script setup lang="ts">
-import { usePond } from "@/modules/pond/usePond";
+import { useCart } from "@/modules/pond/usePond";
 import { useRouter } from "vue-router";
 
 const isVisible = defineModel<boolean>("isVisible");
 
-const togglePond = (): void => {
+const toggleCart = (): void => {
   isVisible.value = !isVisible.value;
 };
 
 const {
-  pond,
+  cart,
   updateQuantity,
-  pondTotal,
-  pondTotalIndividualDuck,
+  cartTotal,
+  cartTotalIndividualDuck,
   salesTax,
   grandTotal,
   code,
-} = usePond();
+} = useCart();
 
 const router = useRouter();
 
 const checkOutBuy = (): void => {
-  router.push("/pond");
+  router.push("/cart");
   isVisible.value = false;
 };
 </script>
@@ -132,12 +132,12 @@ const checkOutBuy = (): void => {
   opacity: 0;
 }
 
-.pond-content {
+.cart-content {
   transition: transform 0.3s ease-in-out;
 }
 
-.fade-slide-enter-from .pond-content,
-.fade-slide-leave-to .pond-content {
+.fade-slide-enter-from .cart-content,
+.fade-slide-leave-to .cart-content {
   transform: translateX(100%);
 }
 </style>

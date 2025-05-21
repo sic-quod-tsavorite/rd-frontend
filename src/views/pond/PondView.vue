@@ -1,19 +1,19 @@
 <template>
   <div class="p-4">
     <h2 class="text-2xl font-bold mb-4">Checkout Section</h2>
-    <p v-if="pond.length === 0" class="text-center pt-5">
+    <p v-if="cart.length === 0" class="text-center pt-5">
       Items have been ordered <br />
       You have no orders currently
     </p>
-    <!-- If pond is empty -->
+    <!-- If cart is empty -->
     <div v-else>
-      <!-- If pond is not empty -->
+      <!-- If cart is not empty -->
       <div
-        v-for="item in pond"
+        v-for="item in cart"
         :key="item._id"
         class="flex items-center mb-4 border-b pb-4"
       >
-        <!-- Loop through the pond items -->
+        <!-- Loop through the cart items -->
         <!-- First Column: Image -->
         <div class="w-1/6">
           <img
@@ -48,12 +48,12 @@
           </button>
           <!-- Increase quantity -->
         </div>
-        <!-- Fourth Column: Total netWorth -->
+        <!-- Fourth Column: Total price -->
         <div class="w-1/6 text-right">
           <p class="font-semibold">
-            $ {{ pondTotalIndividualDuck(item._id).toFixed(2) }}
+            $ {{ cartTotalIndividualDuck(item._id).toFixed(2) }}
           </p>
-          <!-- Total netWorth of the duck with .toFixed() -->
+          <!-- Total price of the duck with .toFixed() -->
         </div>
       </div>
 
@@ -61,13 +61,13 @@
       <div class="mt-4 pt-4">
         <div class="flex justify-between mb-2">
           <p class="font-semibold">Subtotal:</p>
-          <p>$ {{ pondTotal() }}</p>
-          <!-- Total in the pond -->
+          <p>$ {{ cartTotal() }}</p>
+          <!-- Total in the cart -->
         </div>
         <div class="flex justify-between mb-2">
           <p class="font-semibold">Sales Tax:</p>
           <p>$ {{ salesTax() }}</p>
-          <!-- Salestax in the pond -->
+          <!-- Salestax in the cart -->
         </div>
         <div class="flex justify-between mb-2">
           <p class="font-semibold">Coupon Code:</p>
@@ -82,7 +82,7 @@
         <div class="flex justify-between mb-4">
           <p class="font-semibold">Grand Total:</p>
           <p>$ {{ grandTotal() }}</p>
-          <!-- Grand total in the pond -->
+          <!-- Grand total in the cart -->
         </div>
         <div class="flex justify-end">
           <button
@@ -99,19 +99,19 @@
 </template>
 
 <script setup lang="ts">
-import { usePond } from "@/modules/pond/usePond";
+import { useCart } from "@/modules/pond/usePond";
 //import { RouterLink } from "vue-router";
 
 const {
-  pond,
+  cart,
   updateQuantity,
-  pondTotal,
-  pondTotalIndividualDuck,
+  cartTotal,
+  cartTotalIndividualDuck,
   salesTax,
   grandTotal,
   code,
   checkOutBuy,
-} = usePond();
+} = useCart();
 </script>
 
 <style scoped>

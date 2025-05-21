@@ -68,24 +68,24 @@
                 <p v-html="item.quantity" class="mx-2"></p>
                 <!-- Quantity with v-html -->
               </div>
-              <!-- Fourth Column: NetWorth -->
+              <!-- Fourth Column: Price -->
               <div class="w-1/6 text-right">
                 <p class="font-semibold">
-                  $ {{ calculateDiscountedNetWorth(item.duck).toFixed(2) }}
+                  $ {{ calculateDiscountedPrice(item.duck).toFixed(2) }}
                 </p>
-                <!-- NetWorth with .toFixed() -->
+                <!-- Price with .toFixed() -->
               </div>
-              <!-- Fifth Column: Total NetWorth -->
+              <!-- Fifth Column: Total Price -->
               <div class="w-1/6 text-right">
                 <p class="font-semibold">
                   $
                   {{
                     (
-                      calculateDiscountedNetWorth(item.duck) * item.quantity
+                      calculateDiscountedPrice(item.duck) * item.quantity
                     ).toFixed(2)
                   }}
                 </p>
-                <!-- Total netWorth with .toFixed() -->
+                <!-- Total price with .toFixed() -->
               </div>
             </div>
           </div>
@@ -104,20 +104,20 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { usePond } from "@/modules/pond/usePond";
+import { useCart } from "@/modules/pond/usePond";
 import type { Duck } from "@/interfaces/interfaces";
 
-const { orders } = usePond();
+const { orders } = useCart();
 
 const archiveOrder = (orderId: string) => {
   orders.value = orders.value.filter((order) => order._id !== orderId);
 };
 
-const calculateDiscountedNetWorth = (duck: Duck): number => {
+const calculateDiscountedPrice = (duck: Duck): number => {
   if (duck.isDank) {
-    return duck.netWorth * (1 - duck.cutenessPct / 100);
+    return duck.price * (1 - duck.cutenessPct / 100);
   }
-  return duck.netWorth;
+  return duck.price;
 };
 
 const totalRevenue = computed(() => {
@@ -126,7 +126,7 @@ const totalRevenue = computed(() => {
     .reduce((acc, order) => {
       const orderTotal = order.orderLine.reduce((orderAcc, item) => {
         return (
-          orderAcc + calculateDiscountedNetWorth(item.duck) * item.quantity
+          orderAcc + calculateDiscountedPrice(item.duck) * item.quantity
         );
       }, 0);
       return acc + orderTotal;

@@ -1,11 +1,11 @@
 export type Duck = {
   _id: string;
   name: string;
-  aboutDuck: string;
+  description: string;
   imageURL: string;
-  netWorth: number;
-  isDank: boolean;
-  cutenessPct: number;
+  price: number;
+  onSale: boolean;
+  discountPct: number;
   isHidden: boolean;
 };
 
@@ -21,10 +21,10 @@ export type User = {
   registerDate: string;
 };
 
-export type PondItem = {
+export type CartItem = {
   _id: string;
   name: string;
-  netWorth: number;
+  price: number;
   quantity: number;
   imageURL: string;
 };

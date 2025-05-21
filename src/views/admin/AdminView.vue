@@ -26,36 +26,36 @@
 
             <input
               type="text"
-              v-model="newDuck.aboutDuck"
-              placeholder="aboutDuck"
+              v-model="newDuck.description"
+              placeholder="description"
               class="p-2 border rounded"
             />
-            <!-- Duck aboutDuck -->
+            <!-- Duck description -->
             <div class="p-2 border rounded">
-              <span class="uppercase font-bold">Duck net worth: </span>
+              <span class="uppercase font-bold">Duck price: </span>
               <input
                 type="number"
-                v-model="newDuck.netWorth"
-                placeholder="netWorth"
+                v-model="newDuck.price"
+                placeholder="price"
                 class="pl-2"
               />
-              <!-- Duck netWorth -->
+              <!-- Duck price -->
             </div>
             <div class="p-2 border rounded flex items-center">
               <input
                 type="checkbox"
-                v-model="newDuck.isDank"
+                v-model="newDuck.onSale"
                 class="border rounded w-6 h-6 mr-2"
               />
-              <span class="uppercase font-bold">Cuteness in %:</span>
-              <!-- Cuteness in % -->
+              <span class="uppercase font-bold">Discount in %:</span>
+              <!-- Discount in % -->
               <input
                 type="number"
-                v-model="newDuck.cutenessPct"
-                placeholder="Cuteness %"
+                v-model="newDuck.discountPct"
+                placeholder="Discount %"
                 class="ml-2 pl-2"
               />
-              <!-- Cuteness % -->
+              <!-- Discount % -->
             </div>
             <div class="p-2 border rounded flex items-center">
               <input
@@ -102,36 +102,36 @@
             <!-- Duck name -->
             <input
               type="text"
-              v-model="duck.aboutDuck"
-              placeholder="aboutDuck"
+              v-model="duck.description"
+              placeholder="description"
               class="p-2 border rounded"
             />
-            <!-- Duck aboutDuck -->
+            <!-- Duck description -->
             <div class="p-2 border rounded">
-              <span class="uppercase font-bold">Duck net worth: </span>
+              <span class="uppercase font-bold">Duck price: </span>
               <input
                 type="number"
-                v-model="duck.netWorth"
-                placeholder="netWorth"
+                v-model="duck.price"
+                placeholder="price"
                 class="pl-2"
               />
-              <!-- Duck netWorth -->
+              <!-- Duck price -->
             </div>
             <div class="p-2 border rounded flex items-center">
               <input
                 type="checkbox"
                 class="border rounded w-6 h-6 mr-2"
-                v-model="duck.isDank"
+                v-model="duck.onSale"
               />
-              <span class="uppercase font-bold">Cuteness in %:</span>
-              <!-- Cuteness in % -->
+              <span class="uppercase font-bold">Discount in %:</span>
+              <!-- Discount in % -->
               <input
                 type="number"
-                v-model="duck.cutenessPct"
-                placeholder="Cuteness %"
+                v-model="duck.discountPct"
+                placeholder="Discount %"
                 class="ml-2 pl-2"
               />
-              <!-- Cuteness % -->
+              <!-- Discount % -->
             </div>
             <div class="p-2 border rounded flex items-center">
               <input
@@ -208,10 +208,10 @@ onMounted(() => {
 
 const newDuck = ref({
   name: "",
-  aboutDuck: "",
-  netWorth: 0,
-  isDank: false,
-  cutenessPct: 0,
+  description: "",
+  price: 0,
+  onSale: false,
+  discountPct: 0,
   isHidden: false,
   imageURL: "",
   _createdBy: "",
@@ -229,11 +229,11 @@ const addDuckHandler = async () => {
 const updateDuckHandler = async (duck: Duck) => {
   const updatedDuck = {
     name: duck.name,
-    aboutDuck: duck.aboutDuck,
+    description: duck.description,
     imageURL: duck.imageURL,
-    netWorth: duck.netWorth,
-    isDank: duck.isDank,
-    cutenessPct: duck.cutenessPct,
+    price: duck.price,
+    onSale: duck.onSale,
+    discountPct: duck.discountPct,
     isHidden: duck.isHidden,
   };
   await updateDuck(duck._id, updatedDuck);

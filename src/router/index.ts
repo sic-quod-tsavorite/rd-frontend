@@ -25,8 +25,8 @@ const router = createRouter({
       component: () => import("../views/admin/AuthView.vue"),
     },
     {
-      path: "/pond",
-      name: "pond",
+      path: "/cart",
+      name: "cart",
       component: () => import("../views/pond/PondView.vue"),
     },
     {

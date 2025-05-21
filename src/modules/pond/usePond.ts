@@ -1,62 +1,62 @@
 import { ref, watch } from "vue";
-import type { PondItem, OrderItems } from "@/interfaces/interfaces";
+import type { CartItem, OrderItems } from "@/interfaces/interfaces";
 
-export const usePond = () => {
-  const pond = ref<PondItem[]>(
-    JSON.parse(localStorage.getItem("pond") || "[]")
+export const useCart = () => {
+  const cart = ref<CartItem[]>(
+    JSON.parse(localStorage.getItem("cart") || "[]")
   );
 
-  const addToPond = (duck: Omit<PondItem, "quantity">) => {
-    const existingItem = pond.value.find((item) => item._id === duck._id);
+  const addToCart = (duck: Omit<CartItem, "quantity">) => {
+    const existingItem = cart.value.find((item) => item._id === duck._id);
     if (existingItem) {
       existingItem.quantity += 1;
-      console.log("Updated existing item in pond", existingItem);
+      console.log("Updated existing item in cart", existingItem);
     } else {
-      pond.value.push({ ...duck, quantity: 1 });
-      console.log("Added new item to pond", pond.value);
+      cart.value.push({ ...duck, quantity: 1 });
+      console.log("Added new item to cart", cart.value);
     }
-    localStorage.setItem("pond", JSON.stringify(pond.value));
-    console.log("Added to pond: ", pond.value);
+    localStorage.setItem("cart", JSON.stringify(cart.value));
+    console.log("Added to cart: ", cart.value);
   };
 
-  const removeFromPond = (duckId: string) => {
-    const existingItem = pond.value.find((item) => item._id === duckId);
+  const removeFromCart = (duckId: string) => {
+    const existingItem = cart.value.find((item) => item._id === duckId);
     if (existingItem) {
-      pond.value = pond.value.filter((item) => item._id !== duckId);
-      localStorage.setItem("pond", JSON.stringify(pond.value));
+      cart.value = cart.value.filter((item) => item._id !== duckId);
+      localStorage.setItem("cart", JSON.stringify(cart.value));
     }
   };
 
   const updateQuantity = (duckId: string, quantity: number) => {
-    const item = pond.value.find((item) => item._id === duckId);
-    localStorage.setItem("pond", JSON.stringify(pond.value));
+    const item = cart.value.find((item) => item._id === duckId);
+    localStorage.setItem("cart", JSON.stringify(cart.value));
     if (item) {
       item.quantity = quantity;
       if (item.quantity <= 0) {
-        removeFromPond(duckId);
+        removeFromCart(duckId);
       } else {
-        localStorage.setItem("pond", JSON.stringify(pond.value));
+        localStorage.setItem("cart", JSON.stringify(cart.value));
       }
     }
     console.log(`Updated quantity: ${duckId}, Quantity: ${quantity}`);
   };
 
-  const pondTotal = (): number => {
+  const cartTotal = (): number => {
     return Number(
-      pond.value
-        .reduce((acc, item) => acc + item.netWorth * item.quantity, 0)
+      cart.value
+        .reduce((acc, item) => acc + item.price * item.quantity, 0)
         .toFixed(2)
     );
   };
 
-  const pondTotalIndividualDuck = (duckId: string) => {
-    const item = pond.value.find((item) => item._id === duckId);
-    return item ? item.netWorth * item.quantity : 0;
+  const cartTotalIndividualDuck = (duckId: string) => {
+    const item = cart.value.find((item) => item._id === duckId);
+    return item ? item.price * item.quantity : 0;
   };
 
   const salesTax = (): number => {
     const taxRates = 0.25;
-    return Math.round(pondTotal() * taxRates * 100) / 100;
+    return Math.round(cartTotal() * taxRates * 100) / 100;
   };
 
   const code = ref<string>("");
@@ -68,7 +68,7 @@ export const usePond = () => {
 
   const grandTotal = (): number => {
     return Number(
-      ((pondTotal() + salesTax()) * couponCodeDiscount(code.value)).toFixed(2)
+      ((cartTotal() + salesTax()) * couponCodeDiscount(code.value)).toFixed(2)
     );
   };
 
@@ -88,19 +88,19 @@ export const usePond = () => {
     const newOrder: OrderItems = {
       _id: `order${orders.value.length + 1}`,
       orderDate: new Date().toISOString(),
-      total: pondTotal(),
+      total: cartTotal(),
       orderStatus: "Pending",
       orderNumber: orders.value.length + 1,
       userName: localStorage.getItem("userName") || "Anon",
-      orderLine: pond.value.map((item) => ({
+      orderLine: cart.value.map((item) => ({
         duck: {
           _id: item._id,
           name: item.name,
-          aboutDuck: "",
-          netWorth: item.netWorth,
+          description: "",
+          price: item.price,
           imageURL: item.imageURL,
-          isDank: false,
-          cutenessPct: 0,
+          onSale: false,
+          discountPct: 0,
           isHidden: false,
           _createdBy: "",
         },
@@ -108,19 +108,19 @@ export const usePond = () => {
       })),
     };
     orders.value.push(newOrder);
-    pond.value = [];
-    localStorage.setItem("pond", JSON.stringify(pond.value));
+    cart.value = [];
+    localStorage.setItem("cart", JSON.stringify(cart.value));
     console.log("Order placed", orders.value);
     localStorage.setItem("orders", JSON.stringify(orders.value));
   };
 
   return {
-    pond,
-    addToPond,
-    removeFromPond,
+    cart,
+    addToCart,
+    removeFromCart,
     updateQuantity,
-    pondTotal,
-    pondTotalIndividualDuck,
+    cartTotal,
+    cartTotalIndividualDuck,
     salesTax,
     code,
     grandTotal,

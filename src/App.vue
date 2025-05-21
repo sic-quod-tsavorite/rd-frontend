@@ -15,8 +15,8 @@
 
         <!-- RouterLink to ducks, Auth, Admin & and logout button -->
 
-        <!-- toggle pond button -->
-        <button @click="togglePond" class="mr-4">Pond</button>
+        <!-- toggle cart button -->
+        <button @click="toggleCart" class="mr-4">Cart</button>
 
         <!-- Routerlink to orders -->
         <RouterLink v-if="isLoggedIn" to="/orders" class="mr-4">
@@ -29,8 +29,8 @@
     <RouterView />
   </div>
 
-  <!-- PondBasket component -->
-  <PondBasket v-model:isVisible="isPondVisible" />
+  <!-- CartBasket component -->
+  <CartBasket v-model:isVisible="isCartVisible" />
 </template>
 
 <script setup lang="ts">
@@ -38,12 +38,12 @@ import { computed, ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useUsers } from "./modules/auth/useUsers";
 import { state } from "./modules/globalStates/state";
-import PondBasket from "./components/pond/PondBasketView.vue";
+import CartBasket from "./components/pond/PondBasketView.vue";
 
-const isPondVisible = ref(false);
+const isCartVisible = ref(false);
 
-const togglePond = () => {
-  isPondVisible.value = !isPondVisible.value;
+const toggleCart = () => {
+  isCartVisible.value = !isCartVisible.value;
 };
 
 const { logout } = useUsers();

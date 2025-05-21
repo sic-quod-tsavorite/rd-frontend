@@ -43,11 +43,11 @@ export const useDucks = () => {
   const setDefaultValues = (duck: newDuck, userId: string) => {
     return {
       name: duck.name,
-      aboutDuck: duck.aboutDuck || "New Duck aboutDuck default value",
+      description: duck.description || "New Duck description default value",
       imageURL: duck.imageURL || "https://picsum.photos/500/500",
-      netWorth: duck.netWorth || 23,
-      isDank: duck.isDank || false,
-      cutenessPct: duck.cutenessPct || 0,
+      price: duck.price || 23,
+      onSale: duck.onSale || false,
+      discountPct: duck.discountPct || 0,
       isHidden: duck.isHidden || false,
       _createdBy: userId,
     };
