@@ -114,8 +114,8 @@ const archiveOrder = (orderId: string) => {
 };
 
 const calculateDiscountedPrice = (duck: Duck): number => {
-  if (duck.isDank) {
-    return duck.price * (1 - duck.cutenessPct / 100);
+  if (duck.onSale) {
+    return duck.price * (1 - duck.discountPct / 100);
   }
   return duck.price;
 };
