@@ -9,7 +9,7 @@
     </div>
     <div class="w-1/2 p-4">
       <h2 class="text-2xl font-bold mb-4">{{ duck[0].name }}</h2>
-      <p class="text-slate-200 mb-4">{{ duck[0].aboutDuck }}</p>
+      <p class="text-slate-200 mb-4">{{ duck[0].description }}</p>
     </div>
   </div>
   <div v-else>Loading duck details...</div>
@@ -29,9 +29,9 @@ const { fetchDuckById } = useDucks();
 onMounted(async () => {
   const duckId = route.params.id as string;
   const fetchedDuck = await fetchDuckById(duckId);
-  console.log("fetched duck: ", fetchedDuck);
+  //console.log("fetched duck: ", fetchedDuck);
   duck.value = fetchedDuck;
-  console.log("duck: ", duck.value);
+  //console.log("duck: ", duck.value);
 });
 </script>
 

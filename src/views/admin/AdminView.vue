@@ -3,7 +3,12 @@
     <h1 class="text-3xl font-bold mb-8">Admin View</h1>
     <div v-if="loading" class="text-center">Loading...</div>
     <!-- Loading wait screen -->
-    <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
+    <!--<div v-else-if="error" class="text-center text-red-500">{{ error }}</div>-->
+    <div v-else-if="error" class="text-center text-red-500">
+      <p>
+        error: 500 Internal Server Error
+      </p>
+    </div>
     <!-- Error message -->
     <div v-else class="flex flex-wrap -mx-2">
       <!-- add new duck section -->

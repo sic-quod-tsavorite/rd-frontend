@@ -10,13 +10,13 @@ export const useCart = () => {
     const existingItem = cart.value.find((item) => item._id === duck._id);
     if (existingItem) {
       existingItem.quantity += 1;
-      console.log("Updated existing item in cart", existingItem);
+      //console.log("Updated existing item in cart", existingItem);
     } else {
       cart.value.push({ ...duck, quantity: 1 });
-      console.log("Added new item to cart", cart.value);
+      //console.log("Added new item to cart", cart.value);
     }
     localStorage.setItem("cart", JSON.stringify(cart.value));
-    console.log("Added to cart: ", cart.value);
+    //console.log("Added to cart: ", cart.value);
   };
 
   const removeFromCart = (duckId: string) => {
@@ -38,7 +38,7 @@ export const useCart = () => {
         localStorage.setItem("cart", JSON.stringify(cart.value));
       }
     }
-    console.log(`Updated quantity: ${duckId}, Quantity: ${quantity}`);
+    //console.log(`Updated quantity: ${duckId}, Quantity: ${quantity}`);
   };
 
   const cartTotal = (): number => {
@@ -110,7 +110,7 @@ export const useCart = () => {
     orders.value.push(newOrder);
     cart.value = [];
     localStorage.setItem("cart", JSON.stringify(cart.value));
-    console.log("Order placed", orders.value);
+    //console.log("Order placed", orders.value);
     localStorage.setItem("orders", JSON.stringify(orders.value));
   };
 

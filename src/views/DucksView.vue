@@ -4,7 +4,12 @@
     <div v-if="loading" class="text-center">Loading...</div>
     <!-- Loading wait screen with v-if -->
 
-    <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
+    <!--<div v-else-if="error" class="text-center text-red-500">{{ error }}</div>-->
+    <div v-else-if="error" class="text-center text-red-500">
+      <p>
+        error: 500 Internal Server Error
+      </p>
+    </div>
     <!-- Error message with v-else-if -->
 
     <div v-else class="flex flex-wrap -mx-2">

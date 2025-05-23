@@ -17,7 +17,7 @@ export const useDucks = () => {
       }
       const data: Duck[] = await response.json();
       ducks.value = data;
-      console.log("ducks fetched", ducks.value);
+      //console.log("ducks fetched", ducks.value);
     } catch (err) {
       error.value = (err as Error).message;
     } finally {
@@ -73,7 +73,7 @@ export const useDucks = () => {
       }
       const newDuck: Duck = await response.json();
       ducks.value.push(newDuck);
-      console.log("duck added", newDuck);
+      //console.log("duck added", newDuck);
       await fetchDucks();
     } catch (err) {
       error.value = (err as Error).message;
@@ -99,7 +99,7 @@ export const useDucks = () => {
 
   const removeDuckFromState = (id: string): void => {
     ducks.value = ducks.value.filter((duck) => duck._id !== id);
-    console.log("duck deleted", id);
+    //console.log("duck deleted", id);
   };
 
   const deleteDuck = async (id: string): Promise<void> => {
@@ -109,7 +109,7 @@ export const useDucks = () => {
       await deleteDuckFromServer(id, token);
 
       removeDuckFromState(id);
-      console.log("id test: ", id);
+      //console.log("id test: ", id);
     } catch (err) {
       error.value = (err as Error).message;
     }
@@ -172,7 +172,7 @@ export const useDucks = () => {
         throw new Error("No data avaiveble");
       }
       const data: Duck[] = await response.json();
-      console.log("duck fetched", data);
+      //console.log("duck fetched", data);
       return data;
     } catch (err) {
       console.log("error", err);

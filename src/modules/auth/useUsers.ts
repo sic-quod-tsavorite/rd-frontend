@@ -36,8 +36,8 @@ export const useUsers = () => {
 
       localStorage.setItem("lsToken", authResponse.data.token);
       localStorage.setItem("userIDToken", authResponse.data.userId);
-      console.log("user is logged in: ", authResponse);
-      console.log("token: ", token.value);
+      //console.log("user is logged in: ", authResponse);
+      //console.log("token: ", token.value);
     } catch (err) {
       error.value = (err as Error).message || "An error occurred";
       state.isLoggedIn = false;
@@ -67,7 +67,7 @@ export const useUsers = () => {
       user.value = authResponse.data.user;
 
       localStorage.setItem("lsToken", authResponse.data.token);
-      console.log("user is registered: ", authResponse);
+      //console.log("user is registered: ", authResponse);
     } catch (err) {
       error.value = (err as Error).message || "An error occurred";
     }
@@ -78,7 +78,7 @@ export const useUsers = () => {
     user.value = null;
     state.isLoggedIn = false;
     localStorage.removeItem("lsToken");
-    console.log("user is logged out");
+    //console.log("user is logged out");
   };
 
   return {
