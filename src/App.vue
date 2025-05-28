@@ -4,7 +4,7 @@
       <nav class="">
         <RouterLink to="/" class="mr-4">Home</RouterLink>
         <RouterLink to="/about" class="mr-4">About</RouterLink>
-        <RouterLink to="/ducks" class="mr-4">Ducks</RouterLink>
+        <RouterLink to="/products" class="mr-4">Products</RouterLink>
         <RouterLink v-if="!isLoggedIn" to="/auth" class="mr-4"
           >Login</RouterLink
         >
@@ -55,5 +55,8 @@ const isLoggedIn = computed(() => state.isLoggedIn);
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+.router-link-active {
+  color: rgb(0, 180, 0);
 }
 </style>

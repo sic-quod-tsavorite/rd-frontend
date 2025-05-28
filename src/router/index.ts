@@ -15,8 +15,8 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: "/ducks",
-      name: "ducks",
+      path: "/products",
+      name: "products",
       component: () => import("../views/DucksView.vue"),
     },
     {
@@ -36,8 +36,8 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/ducks/:id",
-      name: "duck-details",
+      path: "/products/:id",
+      name: "product-details",
       component: () => import("../views/DuckDetailsView.vue"),
     },
     {
