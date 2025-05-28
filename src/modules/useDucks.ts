@@ -59,7 +59,7 @@ export const useDucks = () => {
       validateDuck(duck);
       const duckWithDefaults = setDefaultValues(duck, userId);
 
-      const response = await fetch(API_URL + "/duck", {
+      const response = await fetch(API_URL + "/rubber-ducks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ export const useDucks = () => {
     id: string,
     token: string
   ): Promise<void> => {
-    const response = await fetch(API_URL + `/duck/${id}`, {
+    const response = await fetch(API_URL + `/rubber-ducks/${id}`, {
       method: "DELETE",
       headers: {
         //"Content-Type": "application/json",
@@ -120,7 +120,7 @@ export const useDucks = () => {
     updatedDuck: Partial<Duck>,
     token: string
   ): Promise<Duck> => {
-    const response = await fetch(API_URL + `/duck/${id}`, {
+    const response = await fetch(API_URL + `/rubber-ducks/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -167,7 +167,7 @@ export const useDucks = () => {
 
   const fetchDuckById = async (id: string): Promise<Duck[] | null> => {
     try {
-      const response = await fetch(API_URL + `/duck/${id}`);
+      const response = await fetch(API_URL + `/rubber-ducks/${id}`);
       if (!response.ok) {
         throw new Error("No data avaiveble");
       }
